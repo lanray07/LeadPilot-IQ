@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000000000000000000000018 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000017 /* Assets.xcassets */; };
+		00000000000000000000001A /* StoreKitProducts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000019 /* StoreKitProducts.plist */; };
+		000000000000000000000200 /* LeadPilotIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000100 /* LeadPilotIQApp.swift */; };
+		000000000000000000000201 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000101 /* Models.swift */; };
+		000000000000000000000202 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000102 /* AppConstants.swift */; };
+		000000000000000000000203 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000103 /* AppRouter.swift */; };
+		000000000000000000000204 /* Environment+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000104 /* Environment+Services.swift */; };
+		000000000000000000000205 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000105 /* ShareSheet.swift */; };
+		000000000000000000000206 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000106 /* CameraCaptureView.swift */; };
+		000000000000000000000207 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000107 /* AIService.swift */; };
+		000000000000000000000208 /* MockAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000108 /* MockAIService.swift */; };
+		000000000000000000000209 /* RemoteAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000109 /* RemoteAIService.swift */; };
+		00000000000000000000020A /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010A /* SubscriptionService.swift */; };
+		00000000000000000000020B /* SpeechRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010B /* SpeechRecognitionService.swift */; };
+		00000000000000000000020C /* PDFProposalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010C /* PDFProposalService.swift */; };
+		00000000000000000000020D /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010D /* ExportService.swift */; };
+		00000000000000000000020E /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010E /* ViewModels.swift */; };
+		00000000000000000000020F /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000010F /* Components.swift */; };
+		000000000000000000000210 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000110 /* AppRootView.swift */; };
+		000000000000000000000211 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000111 /* OnboardingView.swift */; };
+		000000000000000000000212 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000112 /* DashboardView.swift */; };
+		000000000000000000000213 /* LeadListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000113 /* LeadListView.swift */; };
+		000000000000000000000214 /* LeadCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000114 /* LeadCaptureView.swift */; };
+		000000000000000000000215 /* AIQualificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000115 /* AIQualificationView.swift */; };
+		000000000000000000000216 /* AIQuoteGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000116 /* AIQuoteGeneratorView.swift */; };
+		000000000000000000000217 /* AIFollowUpGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000117 /* AIFollowUpGeneratorView.swift */; };
+		000000000000000000000218 /* VoiceToLeadNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000118 /* VoiceToLeadNotesView.swift */; };
+		000000000000000000000219 /* ProposalCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000119 /* ProposalCenterView.swift */; };
+		00000000000000000000021A /* AnalyticsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011A /* AnalyticsDashboardView.swift */; };
+		00000000000000000000021B /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011B /* PaywallView.swift */; };
+		00000000000000000000021C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011C /* SettingsView.swift */; };
+		00000000000000000000021D /* LegalDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011D /* LegalDocumentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000016 /* LeadPilotIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeadPilotIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		000000000000000000000019 /* StoreKitProducts.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StoreKitProducts.plist; sourceTree = "<group>"; };
+		000000000000000000000100 /* LeadPilotIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadPilotIQApp.swift; sourceTree = "<group>"; };
+		000000000000000000000101 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		000000000000000000000102 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		000000000000000000000103 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		000000000000000000000104 /* Environment+Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+Services.swift"; sourceTree = "<group>"; };
+		000000000000000000000105 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		000000000000000000000106 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
+		000000000000000000000107 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		000000000000000000000108 /* MockAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAIService.swift; sourceTree = "<group>"; };
+		000000000000000000000109 /* RemoteAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAIService.swift; sourceTree = "<group>"; };
+		00000000000000000000010A /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
+		00000000000000000000010B /* SpeechRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionService.swift; sourceTree = "<group>"; };
+		00000000000000000000010C /* PDFProposalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFProposalService.swift; sourceTree = "<group>"; };
+		00000000000000000000010D /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		00000000000000000000010E /* ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
+		00000000000000000000010F /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		000000000000000000000110 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		000000000000000000000111 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		000000000000000000000112 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		000000000000000000000113 /* LeadListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadListView.swift; sourceTree = "<group>"; };
+		000000000000000000000114 /* LeadCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadCaptureView.swift; sourceTree = "<group>"; };
+		000000000000000000000115 /* AIQualificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIQualificationView.swift; sourceTree = "<group>"; };
+		000000000000000000000116 /* AIQuoteGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIQuoteGeneratorView.swift; sourceTree = "<group>"; };
+		000000000000000000000117 /* AIFollowUpGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIFollowUpGeneratorView.swift; sourceTree = "<group>"; };
+		000000000000000000000118 /* VoiceToLeadNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceToLeadNotesView.swift; sourceTree = "<group>"; };
+		000000000000000000000119 /* ProposalCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalCenterView.swift; sourceTree = "<group>"; };
+		00000000000000000000011A /* AnalyticsDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDashboardView.swift; sourceTree = "<group>"; };
+		00000000000000000000011B /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		00000000000000000000011C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		00000000000000000000011D /* LegalDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalDocumentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00000000000000000000000E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000004 /* LeadPilotIQ */,
+				000000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000016 /* LeadPilotIQ.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000000000000000000000004 /* LeadPilotIQ */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000100 /* LeadPilotIQApp.swift */,
+				000000000000000000000005 /* Models */,
+				000000000000000000000006 /* Views */,
+				000000000000000000000007 /* ViewModels */,
+				000000000000000000000008 /* Services */,
+				000000000000000000000009 /* Components */,
+				00000000000000000000000A /* Utilities */,
+				00000000000000000000000B /* Resources */,
+			);
+			path = LeadPilotIQ;
+			sourceTree = "<group>";
+		};
+		000000000000000000000005 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000101 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		000000000000000000000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000110 /* AppRootView.swift */,
+				000000000000000000000111 /* OnboardingView.swift */,
+				000000000000000000000112 /* DashboardView.swift */,
+				000000000000000000000113 /* LeadListView.swift */,
+				000000000000000000000114 /* LeadCaptureView.swift */,
+				000000000000000000000115 /* AIQualificationView.swift */,
+				000000000000000000000116 /* AIQuoteGeneratorView.swift */,
+				000000000000000000000117 /* AIFollowUpGeneratorView.swift */,
+				000000000000000000000118 /* VoiceToLeadNotesView.swift */,
+				000000000000000000000119 /* ProposalCenterView.swift */,
+				00000000000000000000011A /* AnalyticsDashboardView.swift */,
+				00000000000000000000011B /* PaywallView.swift */,
+				00000000000000000000011C /* SettingsView.swift */,
+				00000000000000000000011D /* LegalDocumentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		000000000000000000000007 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				00000000000000000000010E /* ViewModels.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		000000000000000000000008 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000107 /* AIService.swift */,
+				000000000000000000000108 /* MockAIService.swift */,
+				000000000000000000000109 /* RemoteAIService.swift */,
+				00000000000000000000010A /* SubscriptionService.swift */,
+				00000000000000000000010B /* SpeechRecognitionService.swift */,
+				00000000000000000000010C /* PDFProposalService.swift */,
+				00000000000000000000010D /* ExportService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		000000000000000000000009 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				00000000000000000000010F /* Components.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000102 /* AppConstants.swift */,
+				000000000000000000000103 /* AppRouter.swift */,
+				000000000000000000000104 /* Environment+Services.swift */,
+				000000000000000000000105 /* ShareSheet.swift */,
+				000000000000000000000106 /* CameraCaptureView.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000017 /* Assets.xcassets */,
+				000000000000000000000019 /* StoreKitProducts.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00000000000000000000000C /* LeadPilotIQ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000010 /* Build configuration list for PBXNativeTarget "LeadPilotIQ" */;
+			buildPhases = (
+				00000000000000000000000D /* Sources */,
+				00000000000000000000000E /* Frameworks */,
+				00000000000000000000000F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeadPilotIQ;
+			productName = LeadPilotIQ;
+			productReference = 000000000000000000000016 /* LeadPilotIQ.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					00000000000000000000000C = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 000000000000000000000011 /* Build configuration list for PBXProject "LeadPilotIQ" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000002;
+			productRefGroup = 000000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00000000000000000000000C /* LeadPilotIQ */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00000000000000000000000F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000000000000000000000018 /* Assets.xcassets in Resources */,
+				00000000000000000000001A /* StoreKitProducts.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00000000000000000000000D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000000000000000000000200 /* LeadPilotIQApp.swift in Sources */,
+				000000000000000000000201 /* Models.swift in Sources */,
+				000000000000000000000202 /* AppConstants.swift in Sources */,
+				000000000000000000000203 /* AppRouter.swift in Sources */,
+				000000000000000000000204 /* Environment+Services.swift in Sources */,
+				000000000000000000000205 /* ShareSheet.swift in Sources */,
+				000000000000000000000206 /* CameraCaptureView.swift in Sources */,
+				000000000000000000000207 /* AIService.swift in Sources */,
+				000000000000000000000208 /* MockAIService.swift in Sources */,
+				000000000000000000000209 /* RemoteAIService.swift in Sources */,
+				00000000000000000000020A /* SubscriptionService.swift in Sources */,
+				00000000000000000000020B /* SpeechRecognitionService.swift in Sources */,
+				00000000000000000000020C /* PDFProposalService.swift in Sources */,
+				00000000000000000000020D /* ExportService.swift in Sources */,
+				00000000000000000000020E /* ViewModels.swift in Sources */,
+				00000000000000000000020F /* Components.swift in Sources */,
+				000000000000000000000210 /* AppRootView.swift in Sources */,
+				000000000000000000000211 /* OnboardingView.swift in Sources */,
+				000000000000000000000212 /* DashboardView.swift in Sources */,
+				000000000000000000000213 /* LeadListView.swift in Sources */,
+				000000000000000000000214 /* LeadCaptureView.swift in Sources */,
+				000000000000000000000215 /* AIQualificationView.swift in Sources */,
+				000000000000000000000216 /* AIQuoteGeneratorView.swift in Sources */,
+				000000000000000000000217 /* AIFollowUpGeneratorView.swift in Sources */,
+				000000000000000000000218 /* VoiceToLeadNotesView.swift in Sources */,
+				000000000000000000000219 /* ProposalCenterView.swift in Sources */,
+				00000000000000000000021A /* AnalyticsDashboardView.swift in Sources */,
+				00000000000000000000021B /* PaywallView.swift in Sources */,
+				00000000000000000000021C /* SettingsView.swift in Sources */,
+				00000000000000000000021D /* LegalDocumentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		000000000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "LeadPilot IQ";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "LeadPilot IQ uses the camera to attach site and project photos to leads.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LeadPilot IQ uses the microphone to record voice notes for lead summaries.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "LeadPilot IQ uses photo library access to attach customer and project photos to leads.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "LeadPilot IQ uses speech recognition to convert voice notes into lead summaries.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leadpilotiq.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		000000000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "LeadPilot IQ";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "LeadPilot IQ uses the camera to attach site and project photos to leads.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LeadPilot IQ uses the microphone to record voice notes for lead summaries.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "LeadPilot IQ uses photo library access to attach customer and project photos to leads.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "LeadPilot IQ uses speech recognition to convert voice notes into lead summaries.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leadpilotiq.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		000000000000000000000014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		000000000000000000000015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000000000000000000000010 /* Build configuration list for PBXNativeTarget "LeadPilotIQ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000000000012 /* Debug */,
+				000000000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		000000000000000000000011 /* Build configuration list for PBXProject "LeadPilotIQ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000000000014 /* Debug */,
+				000000000000000000000015 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000001 /* Project object */;
+}

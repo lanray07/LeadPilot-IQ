@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Products</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Pro Monthly</string>
+			<key>ProductID</key>
+			<string>com.leadpilotiq.pro.monthly</string>
+			<key>PlaceholderPrice</key>
+			<string>&#163;19.99/month</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Pro Yearly</string>
+			<key>ProductID</key>
+			<string>com.leadpilotiq.pro.yearly</string>
+			<key>PlaceholderPrice</key>
+			<string>&#163;149.99/year</string>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Business Monthly</string>
+			<key>ProductID</key>
+			<string>com.leadpilotiq.business.monthly</string>
+			<key>PlaceholderPrice</key>
+			<string>&#163;79.99/month</string>
+		</dict>
+	</array>
+</dict>
+</plist>
