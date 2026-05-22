@@ -150,7 +150,7 @@ struct AIQualificationView: View {
             if let savedResultMessage {
                 Label(savedResultMessage, systemImage: "checkmark.seal")
                     .font(.subheadline)
-                    .foregroundStyle(.lpGreen)
+                    .foregroundStyle(Color.lpGreen)
             }
         }
         .cardStyle()

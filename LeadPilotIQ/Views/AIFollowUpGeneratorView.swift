@@ -134,7 +134,7 @@ struct AIFollowUpGeneratorView: View {
             if let statusMessage {
                 Label(statusMessage, systemImage: "checkmark.circle")
                     .font(.subheadline)
-                    .foregroundStyle(.lpGreen)
+                    .foregroundStyle(Color.lpGreen)
             }
         }
         .cardStyle()
