@@ -19,9 +19,13 @@ env:
   PROJECT_PATH: LeadPilotIQ.xcodeproj
   SCHEME: LeadPilotIQ
   CONFIGURATION: Release
+  BUNDLE_IDENTIFIER: com.leadpilotiq.app
   ARCHIVE_PATH: ${{ github.workspace }}/build/LeadPilotIQ.xcarchive
   EXPORT_PATH: ${{ github.workspace }}/build/LeadPilotIQExport
   API_KEY_PATH: ${{ github.workspace }}/build/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
+  SIGNING_OUTPUT_PATH: ${{ github.workspace }}/build/signing
+  PROFILE_NAME: LeadPilot IQ AppStore
+  PROFILE_FILENAME: LeadPilotIQ_AppStore.mobileprovision
 
 jobs:
   build:
@@ -83,6 +87,77 @@ jobs:
           path.chmod(0o600)
           PY
 
+      - name: Install fastlane
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        run: gem install fastlane -NV
+
+      - name: Create signing keychain
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/leadpilot-signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(uuidgen)"
+          echo "::add-mask::$KEYCHAIN_PASSWORD"
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> "$GITHUB_ENV"
+          echo "KEYCHAIN_PASSWORD=$KEYCHAIN_PASSWORD" >> "$GITHUB_ENV"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
+          security default-keychain -s "$KEYCHAIN_PATH"
+
+      - name: Prepare App Store signing assets
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        run: |
+          mkdir -p fastlane "$SIGNING_OUTPUT_PATH"
+          cat > fastlane/Fastfile <<'RUBY'
+          default_platform(:ios)
+
+          platform :ios do
+            lane :ci_signing do
+              api_key = app_store_connect_api_key(
+                key_id: ENV.fetch("APP_STORE_CONNECT_KEY_ID"),
+                issuer_id: ENV.fetch("APP_STORE_CONNECT_ISSUER_ID"),
+                key_filepath: ENV.fetch("API_KEY_PATH"),
+                duration: 1200,
+                in_house: false
+              )
+
+              cert(
+                api_key: api_key,
+                team_id: ENV.fetch("APPLE_TEAM_ID"),
+                generate_apple_certs: true,
+                keychain_path: ENV.fetch("KEYCHAIN_PATH"),
+                keychain_password: ENV.fetch("KEYCHAIN_PASSWORD"),
+                output_path: ENV.fetch("SIGNING_OUTPUT_PATH")
+              )
+
+              sigh(
+                api_key: api_key,
+                app_identifier: ENV.fetch("BUNDLE_IDENTIFIER"),
+                team_id: ENV.fetch("APPLE_TEAM_ID"),
+                provisioning_name: ENV.fetch("PROFILE_NAME"),
+                filename: ENV.fetch("PROFILE_FILENAME"),
+                output_path: ENV.fetch("SIGNING_OUTPUT_PATH"),
+                force: true
+              )
+            end
+          end
+          RUBY
+
+          fastlane ios ci_signing
+
+          PROFILE_PATH="$SIGNING_OUTPUT_PATH/$PROFILE_FILENAME"
+          PROFILE_PLIST="$RUNNER_TEMP/profile.plist"
+          security cms -D -i "$PROFILE_PATH" > "$PROFILE_PLIST"
+          PROFILE_UUID=$(/usr/libexec/PlistBuddy -c 'Print UUID' "$PROFILE_PLIST")
+          PROFILE_SPECIFIER=$(/usr/libexec/PlistBuddy -c 'Print Name' "$PROFILE_PLIST")
+          echo "PROVISIONING_PROFILE_UUID=$PROFILE_UUID" >> "$GITHUB_ENV"
+          echo "PROVISIONING_PROFILE_SPECIFIER=$PROFILE_SPECIFIER" >> "$GITHUB_ENV"
+
       - name: Archive iOS app
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
         env:
@@ -97,14 +172,13 @@ jobs:
             -configuration "$CONFIGURATION" \
             -destination 'generic/platform=iOS' \
             -archivePath "$ARCHIVE_PATH" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$API_KEY_PATH" \
-            -authenticationKeyID "$APP_STORE_CONNECT_KEY_ID" \
-            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
             DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
-            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROVISIONING_PROFILE_SPECIFIER" \
+            PROVISIONING_PROFILE="$PROVISIONING_PROFILE_UUID" \
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=YES \
             CURRENT_PROJECT_VERSION="${GITHUB_RUN_NUMBER}"
 
       - name: Create export options
@@ -122,9 +196,16 @@ jobs:
             <key>method</key>
             <string>app-store-connect</string>
             <key>signingStyle</key>
-            <string>automatic</string>
+            <string>manual</string>
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
             <key>teamID</key>
             <string>$APPLE_TEAM_ID</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.leadpilotiq.app</key>
+              <string>$PROVISIONING_PROFILE_SPECIFIER</string>
+            </dict>
             <key>stripSwiftSymbols</key>
             <true/>
             <key>uploadSymbols</key>
