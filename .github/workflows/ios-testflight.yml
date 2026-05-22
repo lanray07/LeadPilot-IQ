@@ -1,0 +1,147 @@
+name: iOS Build and App Store Upload
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      upload_to_app_store_connect:
+        description: Upload the archived build to App Store Connect
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  PROJECT_PATH: LeadPilotIQ.xcodeproj
+  SCHEME: LeadPilotIQ
+  CONFIGURATION: Release
+  ARCHIVE_PATH: ${{ runner.temp }}/LeadPilotIQ.xcarchive
+  EXPORT_PATH: ${{ runner.temp }}/LeadPilotIQExport
+  API_KEY_PATH: ${{ runner.temp }}/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
+
+jobs:
+  build:
+    name: Build LeadPilot IQ
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          xcode-select -p
+
+      - name: Validate project
+        run: |
+          xcodebuild \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
+            -list
+
+      - name: Build unsigned simulator app
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.upload_to_app_store_connect }}
+        run: |
+          xcodebuild build \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Validate upload secrets
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          test -n "$APPLE_TEAM_ID" || (echo "APPLE_TEAM_ID secret is missing" && exit 1)
+          test -n "$APP_STORE_CONNECT_KEY_ID" || (echo "APP_STORE_CONNECT_KEY_ID secret is missing" && exit 1)
+          test -n "$APP_STORE_CONNECT_ISSUER_ID" || (echo "APP_STORE_CONNECT_ISSUER_ID secret is missing" && exit 1)
+          test -n "$APP_STORE_CONNECT_API_KEY_P8" || (echo "APP_STORE_CONNECT_API_KEY_P8 secret is missing" && exit 1)
+
+      - name: Write App Store Connect API key
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          key = os.environ["APP_STORE_CONNECT_API_KEY_P8"].replace("\\n", "\n")
+          path = Path(os.environ["API_KEY_PATH"])
+          path.write_text(key)
+          path.chmod(0o600)
+          PY
+
+      - name: Archive iOS app
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        run: |
+          xcodebuild archive \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
+            -configuration "$CONFIGURATION" \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$ARCHIVE_PATH" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$API_KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic \
+            CURRENT_PROJECT_VERSION="${GITHUB_RUN_NUMBER}"
+
+      - name: Create export options
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>destination</key>
+            <string>upload</string>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>teamID</key>
+            <string>$APPLE_TEAM_ID</string>
+            <key>stripSwiftSymbols</key>
+            <true/>
+            <key>uploadSymbols</key>
+            <true/>
+            <key>manageAppVersionAndBuildNumber</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+      - name: Upload archive to App Store Connect
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_app_store_connect }}
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$ARCHIVE_PATH" \
+            -exportPath "$EXPORT_PATH" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$API_KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID"
