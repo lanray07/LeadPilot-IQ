@@ -15,6 +15,7 @@ STORE = ROOT / "AppStoreAssets"
 STORE_ICON = STORE / "Icon"
 IPHONE = STORE / "Screenshots" / "iPhone-6.5"
 IPAD = STORE / "Screenshots" / "iPad-13"
+SUBSCRIPTION_REVIEW = STORE / "SubscriptionReview"
 
 CHARCOAL = (20, 24, 31)
 INK = (30, 35, 46)
@@ -360,6 +361,145 @@ def make_screenshots():
         marketing_screenshot((2064, 2752), IPAD / name, headline, subtitle, screen)
 
 
+SUBSCRIPTION_REVIEW_SHOTS = [
+    (
+        "pro-monthly-review.png",
+        "LeadPilot IQ Pro Monthly",
+        "GBP 19.99 / month",
+        "Best for solo operators who want faster quoting and follow-up.",
+        [
+            "Unlimited leads",
+            "AI qualification scoring",
+            "AI proposal generator",
+            "AI follow-ups",
+            "Voice-to-lead conversion",
+            "Analytics dashboard",
+            "PDF exports",
+            "Pipeline tracking",
+        ],
+        BLUE,
+    ),
+    (
+        "pro-yearly-review.png",
+        "LeadPilot IQ Pro Yearly",
+        "GBP 149.99 / year",
+        "Annual Pro access with AI quotes, follow-ups, and analytics.",
+        [
+            "Unlimited leads",
+            "AI qualification scoring",
+            "AI proposal generator",
+            "AI follow-ups",
+            "Voice-to-lead conversion",
+            "Analytics dashboard",
+            "PDF exports",
+            "Pipeline tracking",
+        ],
+        GREEN,
+    ),
+    (
+        "business-monthly-review.png",
+        "LeadPilot IQ Business Monthly",
+        "GBP 79.99 / month",
+        "Advanced sales workflow for growing service teams.",
+        [
+            "Everything in Pro",
+            "Advanced analytics",
+            "Custom branding",
+            "Team workflow placeholder",
+            "Multi-user placeholder",
+            "CRM integration placeholder",
+            "Priority pipeline tracking",
+        ],
+        TEAL,
+    ),
+]
+
+
+def draw_review_feature(draw: ImageDraw.ImageDraw, x: int, y: int, text: str, max_width: int):
+    draw.ellipse((x, y + 9, x + 24, y + 33), fill=(226, 247, 240), outline=(174, 225, 211), width=2)
+    draw.line((x + 7, y + 21, x + 11, y + 26, x + 18, y + 14), fill=GREEN, width=4, joint="curve")
+    for idx, line in enumerate(wrap(draw, text, font(24), max_width - 40)):
+        draw.text((x + 40, y + idx * 34), line, font=font(24), fill=INK)
+
+
+def subscription_review_screenshot(
+    filename: Path,
+    plan_name: str,
+    price: str,
+    summary: str,
+    features: list[str],
+    accent: tuple[int, int, int],
+):
+    size = (1242, 2688)
+    w, h = size
+    img = gradient(size, (247, 250, 252), (233, 241, 247)).convert("RGBA")
+    draw = ImageDraw.Draw(img)
+
+    draw_status_bar(draw, 0, 0, w)
+    margin = 64
+    cx = margin
+    cw = w - margin * 2
+    top = 122
+    draw.text((cx, top), "Plans", font=font(58, "bold"), fill=INK)
+    top += 84
+    draw.text((cx, top), "Upgrade LeadPilot IQ", font=font(44, "bold"), fill=TEAL)
+    top += 62
+    intro = "Unlock unlimited leads, AI qualification, proposal generation, PDF exports, voice-to-lead conversion, and advanced analytics."
+    for line in wrap(draw, intro, font(30), cw):
+        draw.text((cx, top), line, font=font(25), fill=MUTED)
+        top += 42
+
+    free_top = top + 26
+    rounded(draw, (cx, free_top, cx + cw, free_top + 182), 22, WHITE, outline=LINE)
+    draw.text((cx + 30, free_top + 30), "Free", font=font(31, "bold"), fill=INK)
+    draw.text((cx + 30, free_top + 78), "20 leads/month, basic quotes, limited AI follow-ups.", font=font(24), fill=MUTED)
+    rounded(draw, (cx + cw - 270, free_top + 50, cx + cw - 30, free_top + 112), 18, (235, 240, 245), outline=LINE)
+    draw.text((cx + cw - 224, free_top + 68), "Starter plan", font=font(22, "semibold"), fill=MUTED)
+
+    card_top = free_top + 214
+    rounded(draw, (cx, card_top, cx + cw, card_top + 980), 24, WHITE, outline=accent, width=5)
+    draw.rounded_rectangle((cx + 30, card_top + 32, cx + 222, card_top + 82), radius=16, fill=tuple(int(c * 0.18 + 255 * 0.82) for c in accent))
+    draw.text((cx + 58, card_top + 47), "SELECTED", font=font(20, "bold"), fill=accent)
+    draw.text((cx + 30, card_top + 124), plan_name, font=font(40, "bold"), fill=INK)
+    draw.text((cx + 30, card_top + 184), price, font=font(34, "bold"), fill=accent)
+    yy = card_top + 244
+    for line in wrap(draw, summary, font(27), cw - 60):
+        draw.text((cx + 30, yy), line, font=font(27), fill=MUTED)
+        yy += 34
+    yy += 26
+    for feature in features:
+        draw_review_feature(draw, cx + 30, yy, feature, cw - 60)
+        yy += 58
+
+    button_top = card_top + 868
+    rounded(draw, (cx + 30, button_top, cx + cw - 30, button_top + 82), 18, accent)
+    choose = "Choose " + plan_name.replace("LeadPilot IQ ", "")
+    tw, th = text_size(draw, choose, font(27, "bold"))
+    draw.text((cx + cw / 2 - tw / 2, button_top + 26), choose, font=font(27, "bold"), fill=WHITE)
+
+    restore_top = card_top + 1018
+    rounded(draw, (cx, restore_top, cx + cw, restore_top + 86), 20, WHITE, outline=LINE)
+    tw, th = text_size(draw, "Restore purchases", font(27, "semibold"))
+    draw.text((cx + cw / 2 - tw / 2, restore_top + 28), "Restore purchases", font=font(27, "semibold"), fill=BLUE)
+
+    disclaimer_top = restore_top + 126
+    rounded(draw, (cx, disclaimer_top, cx + cw, disclaimer_top + 270), 22, WHITE, outline=LINE)
+    draw.text((cx + 30, disclaimer_top + 30), "AI disclaimer", font=font(32, "bold"), fill=INK)
+    disclaimer = "AI suggestions should be reviewed. Pricing estimates are not guaranteed. Not financial or legal advice."
+    dy = disclaimer_top + 88
+    for line in wrap(draw, disclaimer, font(26), cw - 60):
+        draw.text((cx + 30, dy), line, font=font(26), fill=MUTED)
+        dy += 38
+
+    filename.parent.mkdir(parents=True, exist_ok=True)
+    img.convert("RGB").save(filename, quality=94, optimize=True)
+
+
+def make_subscription_review_screenshots():
+    for name, plan_name, price, summary, features, accent in SUBSCRIPTION_REVIEW_SHOTS:
+        subscription_review_screenshot(SUBSCRIPTION_REVIEW / name, plan_name, price, summary, features, accent)
+
+
 def make_readme():
     STORE.mkdir(parents=True, exist_ok=True)
     (STORE / "README.md").write_text(
@@ -372,6 +512,7 @@ Generated production-ready raster assets for App Store Connect.
 - `Icon/LeadPilotIQ-AppStoreIcon-1024.png` - 1024x1024 App Store icon.
 - `Screenshots/iPhone-6.5/*.png` - 1242x2688 iPhone screenshots.
 - `Screenshots/iPad-13/*.png` - 2064x2752 iPad screenshots.
+- `SubscriptionReview/*.png` - 1242x2688 subscription screenshots for App Review.
 
 ## Upload order
 
@@ -383,6 +524,12 @@ Generated production-ready raster assets for App Store Connect.
 6. Analytics
 
 Apple requires one to ten screenshots in PNG, JPG, or JPEG format. Because this target supports iPad, upload the iPad 13-inch set as well as the iPhone set.
+
+## Subscription review screenshots
+
+- `pro-monthly-review.png` -> `com.leadpilotiq.pro.monthly`
+- `pro-yearly-review.png` -> `com.leadpilotiq.pro.yearly`
+- `business-monthly-review.png` -> `com.leadpilotiq.business.monthly`
 """,
         encoding="utf-8",
     )
@@ -391,6 +538,7 @@ Apple requires one to ten screenshots in PNG, JPG, or JPEG format. Because this 
 def main():
     make_icons()
     make_screenshots()
+    make_subscription_review_screenshots()
     make_readme()
 
 
