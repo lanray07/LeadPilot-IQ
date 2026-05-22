@@ -1,6 +1,8 @@
 import Foundation
 
 struct MockAIService: AIService {
+    nonisolated init() {}
+
     func qualifyLead(_ lead: Lead, businessType: BusinessType, photos: [LeadPhoto]) async throws -> AILeadQualification {
         try await Task.sleep(nanoseconds: 450_000_000)
 
