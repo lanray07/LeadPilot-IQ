@@ -19,9 +19,9 @@ env:
   PROJECT_PATH: LeadPilotIQ.xcodeproj
   SCHEME: LeadPilotIQ
   CONFIGURATION: Release
-  ARCHIVE_PATH: build/LeadPilotIQ.xcarchive
-  EXPORT_PATH: build/LeadPilotIQExport
-  API_KEY_PATH: build/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
+  ARCHIVE_PATH: ${{ github.workspace }}/build/LeadPilotIQ.xcarchive
+  EXPORT_PATH: ${{ github.workspace }}/build/LeadPilotIQExport
+  API_KEY_PATH: ${{ github.workspace }}/build/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
 
 jobs:
   build:
