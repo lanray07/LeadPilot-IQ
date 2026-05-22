@@ -132,12 +132,24 @@ jobs:
               base64.b64decode(os.environ["CERTIFICATE_BASE64"])
           )
           PY
-          security import "$CERTIFICATE_PATH" \
-            -k "$KEYCHAIN_PATH" \
-            -P "$CERTIFICATE_PASSWORD" \
-            -T /usr/bin/codesign \
-            -T /usr/bin/security \
-            -T /usr/bin/xcodebuild
+          if ! security import "$CERTIFICATE_PATH" \
+              -k "$KEYCHAIN_PATH" \
+              -P "$CERTIFICATE_PASSWORD" \
+              -T /usr/bin/codesign \
+              -T /usr/bin/security \
+              -T /usr/bin/xcodebuild; then
+            if [ -n "$CERTIFICATE_PASSWORD" ]; then
+              echo "Certificate import failed with the provided password; retrying as an empty-password .p12."
+              security import "$CERTIFICATE_PATH" \
+                -k "$KEYCHAIN_PATH" \
+                -P "" \
+                -T /usr/bin/codesign \
+                -T /usr/bin/security \
+                -T /usr/bin/xcodebuild
+            else
+              exit 1
+            fi
+          fi
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security find-identity -v -p codesigning "$KEYCHAIN_PATH"
 
