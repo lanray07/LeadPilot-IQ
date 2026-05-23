@@ -30,11 +30,28 @@ env:
 jobs:
   build:
     name: Build LeadPilot IQ
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Select Xcode 26
+        run: |
+          for XCODE_APP in \
+            /Applications/Xcode_26.5.0.app \
+            /Applications/Xcode_26.4.app \
+            /Applications/Xcode_26.3.app \
+            /Applications/Xcode_26.2.app \
+            /Applications/Xcode_26.1.1.app \
+            /Applications/Xcode_26.0.1.app \
+            /Applications/Xcode.app
+          do
+            if [ -d "$XCODE_APP/Contents/Developer" ]; then
+              sudo xcode-select -s "$XCODE_APP/Contents/Developer"
+              break
+            fi
+          done
 
       - name: Show Xcode version
         run: |

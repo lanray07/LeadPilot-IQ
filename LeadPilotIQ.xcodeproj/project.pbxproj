@@ -322,6 +322,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "LeadPilot IQ uses photo library access to attach customer and project photos to leads.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "LeadPilot IQ uses speech recognition to convert voice notes into lead summaries.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -356,6 +357,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "LeadPilot IQ uses photo library access to attach customer and project photos to leads.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "LeadPilot IQ uses speech recognition to convert voice notes into lead summaries.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
