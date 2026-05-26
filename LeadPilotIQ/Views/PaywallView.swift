@@ -33,6 +33,7 @@ struct PaywallView: View {
                 ForEach(SubscriptionPlan.paidPlans) { plan in
                     PlanCard(
                         plan: plan,
+                        title: subscriptionService.product(for: plan)?.displayName ?? plan.displayName,
                         price: subscriptionService.product(for: plan)?.displayPrice ?? plan.pricePlaceholder,
                         isCurrent: subscriptionService.currentPlan == plan,
                         features: features(for: plan),
@@ -59,6 +60,7 @@ struct PaywallView: View {
                     ErrorBanner(message: error)
                 }
 
+                SubscriptionLegalFooter()
                 DisclaimerBlock()
             }
             .padding()
@@ -101,6 +103,7 @@ struct PaywallView: View {
 
 private struct PlanCard: View {
     var plan: SubscriptionPlan
+    var title: String
     var price: String
     var isCurrent: Bool
     var features: [String]
@@ -111,11 +114,17 @@ private struct PlanCard: View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(plan.displayName)
+                    Text(title)
                         .font(.title3.bold())
                     Text(price)
                         .font(.headline)
                         .foregroundStyle(Color.lpBlue)
+                    Text("Length: \(plan.subscriptionLength)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(plan.renewalSummary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
                 Spacer()
                 if isCurrent {
@@ -136,6 +145,25 @@ private struct PlanCard: View {
             .buttonStyle(.borderedProminent)
             .tint(isCurrent ? .secondary : .lpBlue)
             .disabled(isCurrent || plan == .free)
+        }
+        .cardStyle()
+    }
+}
+
+private struct SubscriptionLegalFooter: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Subscription information")
+                .font(.headline)
+            Text("Payment is charged to your Apple ID at confirmation of purchase. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Renewal is charged within 24 hours before the end of the current period. You can manage or cancel subscriptions in your App Store account settings.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(spacing: 16) {
+                Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
+                Link("Terms of Use (EULA)", destination: AppConstants.termsOfUseURL)
+            }
+            .font(.caption.bold())
         }
         .cardStyle()
     }

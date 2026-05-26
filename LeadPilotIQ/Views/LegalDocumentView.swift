@@ -14,6 +14,14 @@ struct LegalDocumentView: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
+                if document == .privacyPolicy {
+                    Link("Open full Privacy Policy", destination: AppConstants.privacyPolicyURL)
+                }
+
+                if document == .termsOfUse {
+                    Link("Open Apple Standard Terms of Use (EULA)", destination: AppConstants.termsOfUseURL)
+                }
+
                 if document == .aiDisclaimer {
                     DisclaimerBlock()
                 }
@@ -28,11 +36,11 @@ struct LegalDocumentView: View {
         switch document {
         case .privacyPolicy:
             """
-            LeadPilot IQ stores leads, proposals, follow-ups, and analytics locally on this device using SwiftData.
+            LeadPilot IQ stores leads, proposals, follow-ups, and analytics locally on this device using SwiftData unless you choose to export, share, or transmit information.
 
             When mock AI mode is enabled, lead content is processed locally by deterministic mock logic. When remote AI mode is enabled, lead details may be sent to your configured secure backend endpoint. Never place API keys in the iOS app. Configure authentication, logging, retention, and deletion policies on the backend before production release.
 
-            Replace this placeholder with a policy reviewed for your business, region, data processors, and App Store listing.
+            LeadPilot IQ may request access to the camera, photo library, microphone, and speech recognition so you can attach photos and convert voice notes into lead notes. Subscription purchases are handled by Apple through StoreKit and the App Store.
             """
         case .termsOfUse:
             """
@@ -40,7 +48,7 @@ struct LegalDocumentView: View {
 
             Users remain responsible for final pricing, contracts, promises made to customers, legal compliance, tax handling, and financial decisions. AI-assisted output should be reviewed before it is sent or relied on.
 
-            Replace this placeholder with terms reviewed for your business model, subscription products, and jurisdiction.
+            LeadPilot IQ uses Apple's Standard End User License Agreement for apps distributed on the App Store. Paid plans are auto-renewable subscriptions managed through your Apple ID and App Store account settings.
             """
         case .aiDisclaimer:
             """

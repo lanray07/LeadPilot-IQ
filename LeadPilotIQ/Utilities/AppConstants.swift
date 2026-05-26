@@ -5,6 +5,8 @@ enum AppConstants {
     static let mockAIEnabledDefault = true
     static let freeLeadLimit = 20
     static let backendURL = URL(string: "https://YOUR_BACKEND_URL.com/leadpilot-iq")!
+    static let privacyPolicyURL = URL(string: "https://lanray07.github.io/LeadPilot-IQ/privacy.html")!
+    static let termsOfUseURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
 
     static let internalAIPrompt = """
     You are LeadPilot IQ, an AI sales and lead qualification assistant for service businesses. Review lead details, service requests, budgets, notes, and uploaded photos. Generate professional lead qualification summaries, quote drafts, follow-up suggestions, and sales insights. Do not guarantee sales, conversions, project values, or financial outcomes. Use practical, professional language.
