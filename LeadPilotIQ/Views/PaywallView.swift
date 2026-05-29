@@ -18,6 +18,7 @@ struct PaywallView: View {
 
                 PlanCard(
                     plan: .free,
+                    title: SubscriptionPlan.free.displayName,
                     price: SubscriptionPlan.free.pricePlaceholder,
                     isCurrent: subscriptionService.currentPlan == .free,
                     features: [
